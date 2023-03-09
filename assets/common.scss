@@ -1,4 +1,4 @@
-$vw-viewport: 1280;
+$vw-viewport: 1366;
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;700&family=PT+Mono&display=swap');
 @function get-vw($font) {
   $vw-context: $vw-viewport * 0.01 * 1px;
