@@ -250,7 +250,7 @@ the underlying logic of the menu.
             </div>
           {%- endif -%}
 
-          <a href="{{ routes.search_url }}" class="hidden tap-area sm:block" aria-controls="search-drawer">
+          <a href="{{ routes.search_url }}" class=" tap-area " aria-controls="search-drawer">
             <span class="sr-only">{{ 'header.general.open_search' | t }}</span>
             {%- render 'icon' with 'search' -%}
           </a>
@@ -278,7 +278,7 @@ the underlying logic of the menu.
             {%- render 'icon' with 'hamburger' -%}
           </button> 
          
-          <div class="menu-trigger">
+          {% comment %} <div class="menu-trigger">
             <input type="checkbox" id="menu" />
             <label for="menu" class="icon">
               <div class="menu"></div>
@@ -379,7 +379,7 @@ the underlying logic of the menu.
               </div>
             </label>
             
-          </div>
+          </div> {% endcomment %}
 
         </div>
       </div>
@@ -402,7 +402,7 @@ the underlying logic of the menu.
 {%- assign secondary_menu = section.settings.secondary_menu -%}
 
 {%- if main_menu.links.size > 0 or secondary_menu.links.size > 0 -%}
-  <navigation-drawer mobile-opening="{{ section.settings.opening_from }}" open-from="left" id="header-sidebar-menu" class="navigation-drawer drawer {% if section.settings.layout != 'drawer' %}{% endif %}" {% if request.design_mode %}handle-section-events{% endif %}>
+  <navigation-drawer mobile-opening="{{ section.settings.opening_from }}" open-from="right" id="header-sidebar-menu" class="navigation-drawer drawer {% if section.settings.layout != 'drawer' %}{% endif %}" {% if request.design_mode %}handle-section-events{% endif %}>
     <button is="close-button" aria-label="{{ 'general.accessibility.close' | t | escape }}" {%- if section.settings.opening_from == 'bottom' -%}class="sm-max:hidden"{%- endif -%}>
       {%- render 'icon' with 'close', width: 19, height: 19 -%}
     </button>

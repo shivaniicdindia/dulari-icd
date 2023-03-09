@@ -78,9 +78,13 @@
       </svg>
 
     {%- when 'hamburger' -%}
-      <svg role="presentation" stroke-width="{{ stroke_width | default: settings.icon_stroke_width }}" focusable="false" width="{{ width | default: 22 }}" height="{{ height | default: 22 }}" class="{{ class | strip }}" viewBox="0 0 22 22">
+      {% comment %} <svg role="presentation" stroke-width="{{ stroke_width | default: settings.icon_stroke_width }}" focusable="false" width="{{ width | default: 22 }}" height="{{ height | default: 22 }}" class="{{ class | strip }}" viewBox="0 0 22 22">
         <path d="M1 5h20M1 11h20M1 17h20" stroke="currentColor" stroke-linecap="round"></path>
-      </svg>
+      </svg> {% endcomment %}
+      <svg xmlns="http://www.w3.org/2000/svg" width="{{ width | default: 42 }}" height="{{ height | default:13 }}" class="{{ class | strip }}" viewBox="0 0 42 13" fill="none">
+        <line x1="42" y1="0.5" x2="-4.37114e-08" y2="0.499996" stroke="#000201"/>
+        <line x1="42" y1="12.5" x2="-4.37114e-08" y2="12.5" stroke="#000201"/>
+        </svg>
 
     {%- when 'account' -%}
       <svg role="presentation" stroke-width="{{ stroke_width | default: settings.icon_stroke_width }}" focusable="false" width="{{ width | default: 22 }}" height="{{ height | default: 22 }}" class="{{ class | strip }}" viewBox="0 0 22 22">
