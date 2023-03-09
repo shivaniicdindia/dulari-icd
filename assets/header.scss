@@ -1,0 +1,244 @@
+@import "common.scss";
+
+.header {
+  @include for-large-devices {
+    padding: 22px 32px 22px 40px;
+  }
+  @include for-small-devices{
+    //   padding: 29px 20px 18px 20px;
+  }
+ .header__logo{
+     @include for-small-devices{
+        grid-column: 1;
+     }
+ }
+ .header__main-nav{
+   @include for-small-devices{
+    grid-column: 1;
+    grid-row: 2;
+   }
+ }
+  .header__icon-list{
+      gap: 40px;
+      @include for-fluid-section{
+          gap: get-vw(40px);
+      }
+      svg{
+          @include for-fluid-section{
+              width: get-vw(24px);
+              height: get-vw(24px);
+          }
+      }
+  }
+  .header-quote {
+    font-family: "Kiwari Mono";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2e2e2e;
+    @include for-small-devices {
+      grid-row: 2;
+    }
+    @include for-large-devices {
+      position: relative;
+      right: get-vw(140px);
+    }
+    @include for-fluid-section {
+      font-size: get-vw(14px);
+      line-height: get-vw(16px);
+    }
+  }
+  .menu-trigger {
+    input {
+      display: none;
+    }
+    position: relative;
+
+    @include for-small-devices {
+      width: 25px;
+      height: 60px;
+    }
+    @include for-large-devices {
+      width: 42px;
+      height: 60px;
+    }
+    @include for-fluid-section {
+      width: get-vw(42px);
+      height: get-vw(60px);
+    }
+
+    .icon .menu,
+    .icon .menu::before {
+      background: black;
+      content: "";
+      display: block;
+
+      position: absolute;
+      transition: background ease 0.3s, top ease 0.3s 0.3s, transform ease 0.3s;
+
+      @include for-small-devices {
+        width: 25px;
+        height: 1px;
+      }
+      @include for-large-devices {
+        width: 42px;
+        height: 1px;
+      }
+      @include for-fluid-section {
+        width: get-vw(42px);
+        height: get-vw(1px);
+      }
+    }
+
+    .icon .menu {
+      // left: 18px;
+
+      @include for-small-devices {
+        top: 31px;
+      }
+      @include for-large-devices {
+        top: 35px;
+      }
+      @include for-fluid-section {
+        top: get-vw(35px);
+      }
+    }
+
+    .icon .menu::before {
+      @include for-small-devices {
+        top: -8px;
+      }
+      @include for-large-devices {
+        top: -12px;
+      }
+      @include for-fluid-section {
+        top: get-vw(-12px);
+      }
+    }
+
+    #menu:checked + .icon .menu {
+      transform: rotate(45deg);
+    }
+
+    #menu:checked + .icon .menu::before {
+      transform: rotate(90deg);
+    }
+
+    #menu:checked + .icon .menu::before {
+      top: 0;
+      transition: bottom ease 0.3s, transform ease 0.3s 0.3s;
+    }
+    .humbergur-menu {
+      width: 352px;
+      background-color: white;
+      height: 823px;
+      position: absolute;
+      right: 0;
+      top: 60px;
+      display: none;
+      @include for-large-devices {
+        height: 823px;
+        top: 60px;
+      }
+      @include for-fluid-section {
+        top: get-vw(60px);
+        height: get-vw(823px);
+        width: get-vw(352px);
+      }
+     &::after{
+          width: 100vw;
+          height: 100vh;
+          content: "";
+          position:absolute;
+          background: black;
+          top: 0;
+          right: 0;
+          opacity: .6;
+          z-index: -1;
+      }
+      .header__link-list {
+        flex-direction: column;
+        padding: 60px 0 40px 60px;
+        gap: 0;
+        @include for-fluid-section{
+            padding: get-vw(60px) 0 get-vw(40px)  get-vw(60px);
+        }
+        li{
+            margin-bottom: 44px ;
+            @include for-fluid-section{
+                margin-bottom: get-vw(44px);
+            }
+        }
+        .catalog{
+            &::after{
+                content: " ";
+                position: relative;
+                top: 0;
+                left: 15px;
+                width: 15px;
+                height: 12px;
+                background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTEiIGhlaWdodD0iMTMiIHZpZXdCb3g9IjAgMCAxMSAxMyIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEwIDcuNUw1LjUgMTJNNS41IDEyTDEgNy41TTUuNSAxMkw1LjUgLTEuOTY3MDFlLTA3IiBzdHJva2U9IiMyRTJFMkUiLz4KPC9zdmc+Cg==);
+                background-size: contain;
+                background-repeat: no-repeat;
+                display: inline-block;
+                @include for-fluid-section{
+                    left: get-vw(15px);
+                    width:get-vw(15px);
+                    height: get-vw(12px);
+                }
+            }
+        }
+        .link-faded-reverse {
+          font-family: "Kiwari Mono";
+          font-style: normal;
+          font-weight: 400;   
+          font-size: 16px;
+          line-height: 16px;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #000201;
+         @include for-fluid-section{
+             font-size: get-vw(16px);
+             line-height: get-vw(16px);
+         }
+         &:hover{
+         font-weight: 500;
+          border-bottom: 2px solid black;
+          padding-top: 8px;
+         }
+
+        }
+      }
+    }
+    #menu:checked + .icon .humbergur-menu {
+      display: block;
+    }
+  }
+}
+.header-border {
+  position: absolute;
+  height: 1px;
+  background: black;
+  bottom: 0px;
+  @include for-small-devices {
+    width: 100vw;
+    height: 1px;
+  }
+  @include for-large-devices {
+    width: 47.2%;
+  }
+}
+.shopify-section--header{
+.header{
+    .header__logo-image{
+        @include for-fluid-section{
+            width: get-vw(108px) !important;
+            height: get-vw(24px) !important;
+       
+    }
+}
+}
+}

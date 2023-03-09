@@ -1,0 +1,96 @@
+<section class="home-product-carousel">
+  <div class="container-fluid">
+    {% for block in section.blocks %}
+
+      {%- assign collection = collections[block.settings.collection] -%}
+      
+      <div class="flex-container">
+
+
+        <div class="left-column-wrapper">
+          <h2 class="product-title">{{ section.settings.carousel_heading_text }}</h2>
+          <div class=" slider slider-nav">
+
+              {% for product in collection.products limit: 6 %}
+
+                <div class="product-thumb-image image-wrapper" style="background-color:{{ product.metafields.custom.product_bg_color |remove: "[" | remove: "]" | remove: '"' | split: ", "}}"; >
+                  <img src="{{ product.images[1] | image_url}}" alt="" class="" loading="lazy">
+                </div>
+              {% endfor %}
+
+          </div>
+        </div>
+
+        <div class="product-image-price-wrapper slider slider-single">
+          {% assign i = 1 %}
+          {% for product in collection.products limit: 6 %}
+              <div>
+                <div class="product-main-image image-wrapper">
+                  <img src="{{ product.featured_image | image_url}}" alt="" class="" loading="lazy">
+                </div>
+                <div class="product-price_wrapper">
+                  <span class="product-pagination">new arrivals {{i}}/{{collection.products_count | minus: 2}}</span>
+                  <span class="product-price">
+                    {{ product.title | escape }}
+                    {{ product.price | money -}}
+                  </span>
+                </div>
+                <div class="product-description">
+                  <p>
+                    {{ product.description }}
+                  </p>
+                  <button class="btn btn-buy-now">Buy now</button>
+                </div>
+              </div>
+              {% assign i = i | plus: 1 %}
+          {%- endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Image Carousel",
+  "class": "product-image-carousel",
+  "tag": "section",
+  "settings": [
+    {
+      "id": "carousel_heading_text",
+      "type":"text",
+      "label":"carousel_heading"
+    },
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Background"
+    }
+
+  ],
+    "blocks": [
+            {
+              "type": "select",
+              "name": "Add Collection",
+              "settings": [
+                {
+                  "type":"text",
+                  "id":"collection-title",
+                  "label":"Collection title"
+                },
+              {
+                "id":"collection",
+                "type":"collection",
+                "label":"Chose Collection"
+              }
+            ]
+            }
+             ],
+
+  "presets": [
+    {
+      "name": " Home product Carousel"
+    }
+  ]
+}
+{% endschema %}
