@@ -1,0 +1,120 @@
+@import "common.scss";
+
+.single-product-category {
+  @include for-large-devices {
+    margin: 40px 32px;
+  }
+  @include for-small-devices{
+    margin: 40px 0;
+  }
+  @include for-fluid-section {
+    margin: get-vw(40px) get-vw(32px);
+  }
+  .media-with-text__media {
+    @include for-large-devices {
+      width: 760px;
+      height: 500px;
+    }
+    @include for-small-devices{
+      padding: 0 20px;
+    }
+  }
+  .media-with-text__item {
+    grid-template-columns: auto auto;
+    @include for-small-devices{
+      gap: 32px 0;
+    }
+    @include for-large-devices{
+      gap: unset;
+    }
+
+    .media-with-text__content {
+      padding: 0;
+      position: relative;
+      align-items: end;
+      border-bottom: 1px solid black;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    @include for-large-devices{
+      padding: 0 0px 20px 0px;
+    }
+      &::after {
+        position: absolute;
+        content: " ";
+        width: 1px;
+        height: 45px;
+        bottom: 0;
+        // left: 45px;
+        background: black;
+      }
+      .content-wrapper{
+        @include for-small-devices{
+          margin-right: 20px;
+          width: 285px;
+        }
+        @include for-large-devices{
+          width: 328px;
+        }
+        @include for-fluid-section{
+          width: get-vw(328px);
+        }
+      }
+    }
+    p {
+      font-size: 16px !important;
+      line-height: 26px !important;
+      letter-spacing: -0.02em;
+      color: #000201;
+      
+      @include for-fluid-section {
+        font-size: get-vw(16px) !important;
+        line-height: get-vw(26px) !important;
+      }
+    }
+  }
+  .heading-product {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 700;
+
+    letter-spacing: -0.03em;
+    color: #000201;
+    @include for-large-devices {
+      font-size: 40px !important;
+      line-height: 110% !important;
+    }
+    @include for-small-devices {
+      font-size: 36px !important;
+    }
+    @include for-fluid-section {
+      font-size: get-vw(40px)!important;
+    }
+  }
+}
+.text-positionend {
+  .media-with-text__item {
+    @include for-large-devices{
+      grid-template-columns: 760px auto;
+    }
+    .media-with-text__content {
+      &::after {
+        left: 45px;
+      }
+    }
+  }
+}
+.text-positionstart {
+
+  .media-with-text__item {
+    @include for-large-devices{
+      grid-template-columns: auto 760px;
+    }
+    .media-with-text__content {
+      
+      &::after {
+        right: 65px;
+      }
+    }
+  }
+}

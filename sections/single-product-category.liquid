@@ -22,9 +22,9 @@ CSS
     {%- assign media_ratio = block.settings.media_width | divided_by: 50.0 -%}
     {%- assign content_ratio = 2.0 | minus: media_ratio -%}
 
-    #block-{{ section.id }}-{{ block.id }} {
+    {% comment %} #block-{{ section.id }}-{{ block.id }} {
       --media-with-text-item-icon-width: {{ block.settings.icon_width }}px;
-    }
+    } {% endcomment %}
 
     @media screen and (min-width: 1000px) {
       #block-{{ section.id }}-{{ block.id }} {
@@ -40,11 +40,12 @@ LIQUID
 ------------------------------------------------------------------------------------------------------------------------
 {%- endcomment -%}
 
-<div {% render 'section-properties' %}>
+<div class="single-product-category text-position{{ section.settings.texts_position}}" {% render 'section-properties' %}>
+
   <media-with-text class="media-with-text {% if section.settings.spacing == 'none' %}{% if section.settings.full_width %}full-bleed{% else %}rounded{% endif %}{% endif %}">
     {%- for block in section.blocks -%}
-      <div id="block-{{ section.id }}-{{ block.id }}" class="media-with-text__item" {{ block.shopify_attributes }}>
-        <div class="media-with-text__media {% unless section.settings.spacing == 'none' %}rounded{% endunless %}" reveal-on-scroll="true">
+      <div id="block-{{ section.id }}-{{ block.id }}" class="media-with-text__item  " {{ block.shopify_attributes }}>
+        <div class="media-with-text__media   {% unless section.settings.spacing == 'none' %}rounded{% endunless %}" reveal-on-scroll="true">
           {%- if block.type == 'image' -%}
             {%- if block.settings.image != blank -%}
               {%- assign width_ratio = 100.0 | divided_by: block.settings.media_width -%}
@@ -77,30 +78,18 @@ LIQUID
 
         {%- capture content_class -%}media-with-text__content {% unless section.settings.spacing == 'none' %}rounded{% endunless %}{%- endcapture -%}
         <div {% render 'surface', class: content_class, background: block.settings.background, background_gradient: block.settings.background_gradient, text_color: block.settings.text_color %}>
-          <div class="prose break-all {{ block.settings.text_position }}" reveal-on-scroll="true">
-            {%- if block.settings.custom_icon != blank -%}
-              {%- capture sizes -%}{{ block.settings.icon_width }}px{%- endcapture -%}
-              {%- capture widths -%}{{ block.settings.icon_width }}, {{ block.settings.icon_width | times: 2 | at_most: block.settings.custom_icon.width }}{%- endcapture -%}
-              {{- block.settings.custom_icon | image_url: width: block.settings.custom_icon.width | image_tag: loading: 'lazy', sizes: sizes, widths: widths, class: 'media-with-text__icon' -}}
-            {%- elsif block.settings.icon != 'none' -%}
-              {%- render 'icon' with block.settings.icon, width: block.settings.icon_width, height: block.settings.icon_width, class: 'media-with-text__icon' -%}
-            {%- endif -%}
-
-            {%- if block.settings.subheading != blank -%}
-              <p class="bold">{{ block.settings.subheading | escape }}</p>
-            {%- endif -%}
+          <div class=" prose break-all content-wrapper {{ block.settings.text_position }}" reveal-on-scroll="true">
+            {%- if block.settings.link_text != blank -%}
+                {%- render 'button', href: block.settings.link_url, content: block.settings.link_text, size: 'xl', background: block.settings.button_background, text_color: block.settings.button_text_color -%}
+              {%- endif -%}
+          
 
             {%- if block.settings.title != blank -%}
-              <p class="h2">
-                {%- render 'styled-text', content: block.settings.title, gradient: block.settings.text_gradient -%}
-              </p>
+              <h2 class="heading-product">
+                {%- render 'styled-text', content: block.settings.title -%}
+              </h2>
             {%- endif -%}
-
             {{- block.settings.content -}}
-
-            {%- if block.settings.link_text != blank -%}
-              {%- render 'button', href: block.settings.link_url, content: block.settings.link_text, size: 'xl', background: block.settings.button_background, text_color: block.settings.button_text_color -%}
-            {%- endif -%}
           </div>
         </div>
       </div>
@@ -122,35 +111,22 @@ LIQUID
       "default": false
     },
     {
-      "type": "checkbox",
-      "id": "enable_parallax",
-      "label": "Enable parallax effect",
-      "default": true
-    },
-    {
-      "type": "select",
-      "id": "spacing",
-      "label": "Spacing",
-      "options": [
-        {
-          "value": "none",
-          "label": "None"
-        },
-        {
-          "value": "small",
-          "label": "Small"
-        },
-        {
-          "value": "medium",
-          "label": "Medium"
-        },
-        {
-          "value": "large",
-          "label": "Large"
-        }
-      ],
-      "default": "small"
-    }
+        "type": "select",
+        "id": "texts_position",
+        "label": "text position",
+        "options": [
+          {
+            "value": "start",
+            "label": "Left"
+          },
+          {
+            "value": "end",
+            "label": "Right"
+          }
+        ],
+        "default": "start"
+      }
+    
   ],
   "blocks": [
     {
@@ -161,18 +137,10 @@ LIQUID
           "type": "image_picker",
           "id": "image",
           "label": "Image",
-          "info": "1500 x 1500px .jpg recommended"
+          "info": "750px x 500px .jpg recommended"
         },
-        {
-          "type": "range",
-          "id": "media_width",
-          "label": "Image width",
-          "min": 30,
-          "max": 60,
-          "step": 5,
-          "unit": "%",
-          "default": 50
-        },
+
+       
         {
           "type": "select",
           "id": "media_position",
@@ -190,28 +158,7 @@ LIQUID
           "default": "start"
         },
        
-       
-        {
-          "type": "image_picker",
-          "id": "custom_icon",
-          "label": "Custom icon",
-          "info": "240 x 240px .png recommended"
-        },
-        {
-          "type": "range",
-          "id": "icon_width",
-          "min": 24,
-          "max": 120,
-          "step": 4,
-          "unit": "px",
-          "label": "Icon width",
-          "default": 48
-        },
-        {
-          "type": "text",
-          "id": "subheading",
-          "label": "Subheading"
-        },
+      
         {
           "type": "text",
           "id": "title",
@@ -241,26 +188,11 @@ LIQUID
         },
         {
           "type": "color",
-          "id": "background",
-          "label": "Background",
-          "default": "#000000"
-        },
-        {
-          "type": "color_background",
-          "id": "background_gradient",
-          "label": "Background gradient"
-        },
-        {
-          "type": "color",
           "id": "text_color",
           "label": "Text",
           "default": "#ffffff"
         },
-        {
-          "type": "color_background",
-          "id": "text_gradient",
-          "label": "Text gradient"
-        },
+       
         {
           "type": "color",
           "id": "button_background",
@@ -365,22 +297,6 @@ LIQUID
           "default": "place-self-center text-center"
         },
    
-        {
-          "type": "image_picker",
-          "id": "custom_icon",
-          "label": "Custom icon",
-          "info": "240 x 240px .png recommended"
-        },
-        {
-          "type": "range",
-          "id": "icon_width",
-          "min": 24,
-          "max": 120,
-          "step": 4,
-          "unit": "px",
-          "label": "Icon width",
-          "default": 48
-        },
        
         {
           "type": "text",
